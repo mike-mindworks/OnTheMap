@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="WI9-xf-8bb">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="WI9-xf-8bb">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -283,6 +283,10 @@
                                     <constraint firstAttribute="width" constant="100" id="i53-Vo-7MG"/>
                                 </constraints>
                             </imageView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="exp-vB-byC">
+                                <rect key="frame" x="197" y="493" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -305,6 +309,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="NtP-Sc-ibz"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="exp-vB-byC" id="RuD-ci-Rzb"/>
                         <outlet property="findLocationButton" destination="qgw-Hl-qnn" id="38u-zH-4Rd"/>
                         <outlet property="geocodeString" destination="XtI-5o-Xyl" id="xW6-p5-bnf"/>
                         <outlet property="locationLabel" destination="poX-5X-ceU" id="BhP-zJ-BGV"/>

@@ -48,7 +48,18 @@ class OTMClient {
     }
     
     class func postLocation(location: StudentLocation, completion: @escaping (PostLocationResponse?, Error?) -> Void) {
-        let postLocationRequest = PostLocation(uniqueKey: location.uniqueKey ?? "123321", firstName: location.firstName ?? "", lastName: location.lastName ?? "", mapString: location.mapString ?? "", mediaURL: location.mediaURL ?? "", latitude: location.latitude!, longitude: location.longitude!)
+        var key = location.uniqueKey
+        if let uniqueKey = location.uniqueKey {
+            key = uniqueKey
+        }
+        else {
+            if let accountKey = OnTheMapModel.userAccount?.key {
+                key = accountKey
+            }
+        }
+        // Hard-code a default key if there is none so the API call doesn't fail - there's no explanation of what this is supposed to be
+        // Is this the account key? Is this the Session ID? 
+        let postLocationRequest = PostLocation(uniqueKey: key ?? "12341234", firstName: location.firstName ?? "", lastName: location.lastName ?? "", mapString: location.mapString ?? "", mediaURL: location.mediaURL ?? "", latitude: location.latitude!, longitude: location.longitude!)
         taskForLocationPOSTRequest(url: Endpoints.addLocation.url, requestObject: postLocationRequest, responseType: PostLocationResponse.self) { (response, error) in
             if let response = response {
                 completion(response, nil)

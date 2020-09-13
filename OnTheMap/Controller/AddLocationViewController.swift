@@ -15,6 +15,7 @@ class AddLocationViewController: UIViewController {
     @IBOutlet weak var websiteUrl: UITextField!
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var findLocationButton: UIButton!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var newLocation: StudentLocation?
     lazy var geocoder = CLGeocoder()
@@ -44,11 +45,13 @@ class AddLocationViewController: UIViewController {
     @IBAction func findLocation(_ sender: Any) {
         self.view.endEditing(true)
         if let address = geocodeString.text {
+            activityIndicator.startAnimating()
             geocoder.geocodeAddressString(address, completionHandler: getGeocodeResponse)
         }
     }
 
     func getGeocodeResponse( geocodes: [CLPlacemark]?, error: Error?) {
+        activityIndicator.stopAnimating()
         if let error = error {
             print("Error returned for geocode string: \(error.localizedDescription)")
             locationLabel.text = "Unable to find a Location for this Address"

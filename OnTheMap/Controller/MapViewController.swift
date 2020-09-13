@@ -18,7 +18,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.mapView.delegate = self
+        mapView.delegate = self
 
         // Do any additional setup after loading the view.
         _ = OTMClient.getStudentLocations() { studentLocations, error in
@@ -26,7 +26,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
         
         // Convert the locations to annotations and add them to the map.
-        self.mapView.addAnnotations(getAnnotations(locations: OnTheMapModel.studentLocations))
+        mapView.addAnnotations(getAnnotations(locations: OnTheMapModel.studentLocations))
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -52,6 +52,12 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     @IBAction func refresh(_ sender: Any) {
         weak var mvc = self
         _ = OTMClient.getStudentLocations() { studentLocations, error in
+            if let error = error {
+                print("ERROR getting student locations from server: " + error.localizedDescription)
+                let alert = UIAlertController(title: "Could not retrieve data", message: "An error occurred while trying to retrieve an update for the map locations", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                return
+            }
             OnTheMapModel.studentLocations = studentLocations
             if let oldAnnotations = mvc?.annotations {
                 mvc?.mapView.removeAnnotations(oldAnnotations)
